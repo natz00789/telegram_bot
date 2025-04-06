@@ -39,9 +39,15 @@ logging.basicConfig(level=logging.INFO,
 
 # ==== GOOGLE SHEETS SETUP ==== #
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-current_path = os.path.dirname(__file__)
-json_path = os.path.join(current_path, "cloud-functions-1-449806-2977e2ff6692.json")
-creds = ServiceAccountCredentials.from_json_keyfile_name(json_path, scope)
+service_account_base64 = os.getenv("GOOGLE_SERVICE_JSON_BASE64")
+if not service_account_base64:
+    raise ValueError("ไม่พบ GOOGLE_SERVICE_JSON_BASE64 ใน environment")
+
+decoded_bytes = base64.b64decode(service_account_base64)
+decoded_text = decoded_bytes.decode("utf-8")
+service_account_info = json.loads(decoded_text)# type: ignore
+
+creds = ServiceAccountCredentials.from_json_keyfile_dict(service_account_info, scope)
 client = gspread.authorize(creds)
 sheet = client.open("Telegram Orders Log")
 
