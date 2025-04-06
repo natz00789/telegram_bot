@@ -12,7 +12,7 @@ from collections import defaultdict
 import sqlite3  # Import SQLite
 from enum import Enum  # Import Enum
 from difflib import SequenceMatcher
-
+import base64
 
 # ==== CONFIG ==== #
 TOKEN = "7625175226:AAGqGqNGpQWr0oK-7RQyagOeNEf3meWsv28"
