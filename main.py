@@ -12,6 +12,7 @@ from collections import defaultdict
 import sqlite3  # Import SQLite
 from enum import Enum  # Import Enum
 from difflib import SequenceMatcher
+import json
 import base64
 
 # ==== CONFIG ==== #
